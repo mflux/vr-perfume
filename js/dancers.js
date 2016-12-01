@@ -152,7 +152,7 @@ AFRAME.registerComponent('ribbon-skin', {
 
     that.el.ribbonEnabled = true;
 
-    const ribbonIterations = 7;
+    const ribbonIterations = 1;
     const randomScale = 2.0;
     const randomLerp = 0.4;
     this.el.addEventListener( 'animation-loaded', function( e ){

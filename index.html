@@ -17,15 +17,15 @@
 
     </script>
 
-    <a-scene antialias="true" fog="type: linear; color: #ffffff; near: 0.0001; far: 15" >
+    <a-scene antialias="true" fog="type: linear; color: #ffffff; near: 0.0001; far: 15" stats >
 
-      <a-plane position="0 0 0" rotation="-90 0 0" width="32" height="32" color="#ffffff" shadow="receive: true"></a-plane>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="32" height="32" color="#ffffff" shadow="receive: false"></a-plane>
       <a-sky color="#ffffff"></a-sky>
 
       <a-entity id="dancers" scale="0.105 0.105 0.105" rotation="0 180 0">
-        <a-entity bvh-skeleton="src:assets/aachan.bvh; display:false" tetra-skin></a-entity>
-        <a-entity bvh-skeleton="src:assets/kashiyuka.bvh; display:false" tetra-skin></a-entity>
-        <a-entity bvh-skeleton="src:assets/nocchi.bvh; display:false" tetra-skin></a-entity>
+        <a-entity bvh-skeleton="src:assets/aachan.bvh; display:false" tetra-skin shadow="cast:false"></a-entity>
+        <a-entity bvh-skeleton="src:assets/kashiyuka.bvh; display:false" tetra-skin shadow="cast:false"></a-entity>
+        <a-entity bvh-skeleton="src:assets/nocchi.bvh; display:false" tetra-skin shadow="cast:false"></a-entity>
       </a-entity>
 
 
@@ -35,7 +35,21 @@
           color: #ffffe5;
           intensity: 0.4"
         position="0 143.2 5"
+
         ></a-entity>
+<!--
+        shadow-light="
+          color:            #ffffff;
+          intensity:        0.4;
+          castShadow:       true;
+          shadowCameraNear: 10;
+          shadowCameraFar:  500;
+          shadowCameraFov:  70;
+          shadowMapWidth:   1024;
+          shadowMapHeight:  1024;
+          shadowBias:       0;
+          decay:            4;
+          angle:            0.8;" -->
 
         <a-entity
         id="controller_right"
@@ -46,7 +60,7 @@
         vive-controls="hand: left"></a-entity>
 
 
-        <a-datgui name="settings" position="0 2 -1">
+<!--         <a-datgui name="settings" position="0 2 -1">
           <a-gui-slider id="scaleControl" name="scale" step="0.01" min="0.01" max="4"></a-gui-slider>
           <a-gui-dropdown name="options">
             <a-gui-option value="0">Item 0</a-gui-option>
@@ -54,7 +68,7 @@
           </a-gui-dropdown>
           <a-gui-checkbox name="on or off" default="true"></a-gui-checkbox>
           <a-gui-button name="click me"></a-gui-button>
-        </a-datgui>
+        </a-datgui> -->
 
         <!-- <a-sound src="src: url(assets/Perfume_globalsite_sound.ogg)" autoplay="true" position="0 4 0"></a-sound> -->
 
