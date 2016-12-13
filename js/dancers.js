@@ -150,9 +150,9 @@ AFRAME.registerComponent('ribbon-skin', {
 
     that.tickMax = that.data.maxLength;
 
-    that.el.ribbonEnabled = true;
+    that.el.ribbonEnabled = false;
 
-    const ribbonIterations = 1;
+    const ribbonIterations = window.isVive ? 5 : 1;
     const randomScale = 2.0;
     const randomLerp = 0.4;
     this.el.addEventListener( 'animation-loaded', function( e ){
@@ -229,21 +229,24 @@ AFRAME.registerComponent('ribbon-skin', {
 });
 
 window.onload = function init(){
-  // document.querySelector( '#controller_right' ).addEventListener('menudown', function(e){
-  //   Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
-  //     element.ribbonEnabled = !element.ribbonEnabled;
-  //   });
-  // });
-  // document.querySelector( '#controller_right' ).addEventListener('trackpaddown', function(e){
-  //   Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
-  //     element.tetraEnabled = !element.tetraEnabled;
-  //   });
-  // });
-  // document.querySelector( '#controller_right' ).addEventListener('gripdown', function(e){
-  //   Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
-  //     element.skeletonViewEnabled = !element.skeletonViewEnabled;
-  //   });
-  // });
+  if (window.isVive) {
+    document.querySelector( '#controller_right' ).addEventListener('menudown', function(e){
+      Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
+        element.ribbonEnabled = !element.ribbonEnabled;
+      });
+    });
+    document.querySelector( '#controller_right' ).addEventListener('trackpaddown', function(e){
+      Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
+        element.tetraEnabled = !element.tetraEnabled;
+      });
+    });
+    document.querySelector( '#controller_right' ).addEventListener('gripdown', function(e){
+      Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
+        element.skeletonViewEnabled = !element.skeletonViewEnabled;
+      });
+    });
+  }
+
 
   // const dancers = document.querySelector( '#dancers' );
   // const ds = new THREE.Vector3();

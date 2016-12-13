@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, World! - A-Frame</title>
+    <meta name="description" content="Hello, World! - A-Frame">
+
+
+    <script type="text/javascript">
+      window.WebVRConfig =  {
+        BUFFER_SCALE: 1,
+        CARDBOARD_UI_DISABLED: false,
+        ROTATE_INSTRUCTIONS_DISABLED: true,
+        TOUCH_PANNER_DISABLED: true,
+        MOUSE_KEYBOARD_CONTROLS_DISABLED: true
+      };
+      window.isVive = true;
+    </script>
+
+    <script type="text/javascript" src="js/aframe-master.js"></script>
+    <script type="text/javascript" src="js/aframe-extras.js"></script>
+    <script type="text/javascript" src="js/BVHLoader.js"></script>
+    <!-- <script type="text/javascript" src="js/datguivr.min.js"></script> -->
+    <!-- <script type="text/javascript" src="js/datguivr-aframe.js"></script> -->
+    <script type="text/javascript" src="js/dancers.js"></script>
+    <script type="text/javascript" src="js/stats.min.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+
+
+    </script>
+
+    <a-scene antialias="true" fog="type: linear; color: #ffffff; near: 0.0001; far: 15" tstats >
+
+      <a-plane position="0 0 0" rotation="-90 0 0" width="32" height="32" color="#ffffff" shadow="receive: true"></a-plane>
+      <a-sky color="#ffffff"></a-sky>
+
+      <a-entity id="dancers" scale="0.105 0.105 0.105" rotation="0 0 0" position="0.5 0 2.1">
+        <a-entity bvh-skeleton="src:assets/aachan.bvh; display:false" tetra-skin ribbon-skin shadow="cast:true"></a-entity>
+        <a-entity bvh-skeleton="src:assets/kashiyuka.bvh; display:false" tetra-skin ribbon-skin shadow="cast:true"></a-entity>
+        <a-entity bvh-skeleton="src:assets/nocchi.bvh; display:false" tetra-skin ribbon-skin shadow="cast:true"></a-entity>
+      </a-entity>
+
+
+      <a-entity
+        light="
+          type: directional;
+          color: #ffffe5;
+          intensity: 0.4"
+        position="0 143.2 5"
+
+        shadow-light="
+          color:            #ffffff;
+          intensity:        0.3;
+          castShadow:       true;
+          shadowCameraNear: 10;
+          shadowCameraFar:  500;
+          shadowCameraFov:  70;
+          shadowMapWidth:   2048;
+          shadowMapHeight:  2048;
+          shadowBias:       0;
+          decay:            4;
+          angle:            0.8;"
+        ></a-entity>
+
+        <a-entity
+        id="controller_right"
+        vive-controls="hand: right"></a-entity>
+
+        <a-entity
+        id="controller_left"
+        vive-controls="hand: left"></a-entity>
+
+
+<!--         <a-datgui name="settings" position="0 2 -1">
+          <a-gui-slider id="scaleControl" name="scale" step="0.01" min="0.01" max="4"></a-gui-slider>
+          <a-gui-dropdown name="options">
+            <a-gui-option value="0">Item 0</a-gui-option>
+            <a-gui-option value="1">Item 1</a-gui-option>
+          </a-gui-dropdown>
+          <a-gui-checkbox name="on or off" default="true"></a-gui-checkbox>
+          <a-gui-button name="click me"></a-gui-button>
+        </a-datgui> -->
+
+  <!--       <a-sound src="src: url(assets/Perfume_globalsite_sound.ogg)" autoplay="true" position="0 4 0"></a-sound>  -->
+
+    </a-scene>
+  </body>
+</html>
