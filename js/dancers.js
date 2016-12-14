@@ -45,7 +45,7 @@ AFRAME.registerComponent('bvh-skeleton', {
 
       // play animation
       const mixer = that.mixer = new THREE.AnimationMixer( skeletonHelper );
-      mixer.clipAction( result.clip ).setEffectiveWeight( 1.0 ).play();
+      mixer.clipAction( result.clip ).setEffectiveWeight( 1.0 ).play().setLoop( THREE.LoopOnce );
 
       const group = new THREE.Group();
       group.add( skeletonHelper );
@@ -152,7 +152,7 @@ AFRAME.registerComponent('ribbon-skin', {
 
     that.el.ribbonEnabled = true;
 
-    const ribbonIterations = 1;
+    const ribbonIterations = 6;
     const randomScale = 2.0;
     const randomLerp = 0.4;
     this.el.addEventListener( 'animation-loaded', function( e ){
@@ -229,26 +229,32 @@ AFRAME.registerComponent('ribbon-skin', {
 });
 
 window.onload = function init(){
-  // document.querySelector( '#controller_right' ).addEventListener('menudown', function(e){
-  //   Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
-  //     element.ribbonEnabled = !element.ribbonEnabled;
-  //   });
-  // });
-  // document.querySelector( '#controller_right' ).addEventListener('trackpaddown', function(e){
-  //   Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
-  //     element.tetraEnabled = !element.tetraEnabled;
-  //   });
-  // });
-  // document.querySelector( '#controller_right' ).addEventListener('gripdown', function(e){
-  //   Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
-  //     element.skeletonViewEnabled = !element.skeletonViewEnabled;
-  //   });
-  // });
+  document.querySelector( '#controller_right' ).addEventListener('menudown', function(e){
+    Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
+      element.ribbonEnabled = !element.ribbonEnabled;
+    });
+  });
+  document.querySelector( '#controller_right' ).addEventListener('trackpaddown', function(e){
+    Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
+      element.tetraEnabled = !element.tetraEnabled;
+    });
+  });
+  document.querySelector( '#controller_right' ).addEventListener('gripdown', function(e){
+    Array.from( document.querySelector( '#dancers' ).children ).forEach( function( element ){
+      element.skeletonViewEnabled = !element.skeletonViewEnabled;
+    });
+  });
 
-  // const dancers = document.querySelector( '#dancers' );
-  // const ds = new THREE.Vector3();
-  // document.querySelector( '#scaleControl' ).addEventListener('onChanged', function( e ){
-  //   ds.setScalar( e.detail.value );
-  //   dancers.setAttribute( 'scale', ds );
-  // });
+  const dancers = document.querySelector( '#dancers' );
+  const ds = new THREE.Vector3();
+  document.querySelector( '#scaleControl' ).addEventListener('onChanged', function( e ){
+    ds.setScalar( e.detail.value );
+    dancers.setAttribute( 'scale', ds );
+  });
+
+  const soundtrack = document.querySelector( '#soundtrack' );
+  window.setTimeout(function(){
+    soundtrack.components.sound.playSound();
+  }, 4000)
+
 };
