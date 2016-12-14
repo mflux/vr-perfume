@@ -37,29 +37,31 @@ AFRAME.registerComponent('bvh-skeleton', {
     const that = this;
     el.skeletonViewEnabled = display;
 
-    loader.load( assetPath, function( result ) {
-      const skeletonHelper = that.skeletonHelper = new THREE.SkeletonHelper( result.skeleton.bones[ 0 ] );
-      skeletonHelper.skeleton = result.skeleton;
-      const boneContainer = new THREE.Group();
-      boneContainer.add( result.skeleton.bones[ 0 ] );
+    that.loadPromise = new Promise(function( resolve, reject ){
+      loader.load( assetPath, function( result ) {
+        const skeletonHelper = that.skeletonHelper = new THREE.SkeletonHelper( result.skeleton.bones[ 0 ] );
+        skeletonHelper.skeleton = result.skeleton;
+        const boneContainer = new THREE.Group();
+        boneContainer.add( result.skeleton.bones[ 0 ] );
 
-      // play animation
-      const mixer = that.mixer = new THREE.AnimationMixer( skeletonHelper );
-      mixer.clipAction( result.clip ).setEffectiveWeight( 1.0 ).play().setLoop( THREE.LoopOnce );
+        // play animation
+        const mixer = that.mixer = new THREE.AnimationMixer( skeletonHelper );
+        mixer.clipAction( result.clip ).setEffectiveWeight( 1.0 ).play().setLoop( THREE.LoopOnce );
 
-      const group = new THREE.Group();
-      group.add( skeletonHelper );
-      group.add( boneContainer );
+        const group = new THREE.Group();
+        group.add( skeletonHelper );
+        group.add( boneContainer );
 
-      that.skeletonView = skeletonHelper;
+        that.skeletonView = skeletonHelper;
 
-      skeletonHelper.visible = display;
+        skeletonHelper.visible = display;
 
-      el.setObject3D( 'skeleton', group );
+        el.setObject3D( 'skeleton', group );
 
-      el.emit('animation-loaded', {group, skeleton: result.skeleton});
-    } );
-
+        el.emit('animation-loaded', {group, skeleton: result.skeleton});
+        resolve();
+      } );
+    });
   },
 
   tick: function( delta ){
@@ -239,9 +241,16 @@ window.onload = function init(){
   });
 
   const soundtrack = document.querySelector( '#soundtrack' );
-  window.setTimeout(function(){
-    soundtrack.components.sound.playSound();
-  }, 3900)
+
+
+  Promise.all( Array.from(dancers).map(function(e){
+    return e.components['bvh-skeleton'].loadPromise;
+  })).then( function(e){
+    console.log('all dancers loaded');
+    window.setTimeout(function(){
+      soundtrack.components.sound.playSound();
+    }, 4200)
+  });
 
   if (window.isVive) {
     document.querySelector( '#controller_right' ).addEventListener('menudown', function(e){
