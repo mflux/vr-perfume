@@ -46,7 +46,13 @@ AFRAME.registerComponent('bvh-skeleton', {
 
         // play animation
         const mixer = that.mixer = new THREE.AnimationMixer( skeletonHelper );
-        mixer.clipAction( result.clip ).setEffectiveWeight( 1.0 ).play().setLoop( THREE.LoopOnce );
+        const action = mixer.clipAction( result.clip ).setEffectiveWeight( 1.0 );
+
+        if (window.isVive) {
+          action.play().setLoop( THREE.LoopOnce );
+        } else {
+          action.play();
+        }
 
         const group = new THREE.Group();
         group.add( skeletonHelper );
@@ -152,7 +158,7 @@ AFRAME.registerComponent('ribbon-skin', {
 
     that.tickMax = that.data.maxLength;
 
-    that.el.ribbonEnabled = true;
+    that.el.ribbonEnabled = false;
 
     const ribbonIterations = window.isVive ? 5 : 1;
 
@@ -235,11 +241,13 @@ window.onload = function init(){
 
   const dancers = document.querySelector( '#dancers' );
   const ds = new THREE.Vector3();
-  document.querySelector( '#scaleControl' ).addEventListener('onChanged', function( e ){
-    ds.setScalar( e.detail.value );
-    dancers.setAttribute( 'scale', ds );
-  });
-
+  const scaleControl = document.querySelector( '#scaleControl' );
+  if(scaleControl) {
+    scaleControl.addEventListener('onChanged', function( e ){
+      ds.setScalar( e.detail.value );
+      dancers.setAttribute( 'scale', ds );
+    });
+  }
   const soundtrack = document.querySelector( '#soundtrack' );
 
 
@@ -247,9 +255,12 @@ window.onload = function init(){
     return e.components['bvh-skeleton'].loadPromise;
   })).then( function(e){
     console.log('all dancers loaded');
-    window.setTimeout(function(){
-      soundtrack.components.sound.playSound();
-    }, 4200)
+    if (soundtrack) {
+      window.setTimeout(function(){
+        soundtrack.components.sound.playSound();
+      }, 4200)
+    }
+
   });
 
   if (window.isVive) {

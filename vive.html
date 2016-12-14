@@ -36,10 +36,11 @@
       <a-plane position="0 0 0" rotation="-90 0 0" width="32" height="32" color="#ffffff" shadow="receive: true"></a-plane>
       <a-sky color="#ffffff"></a-sky>
 
-      <a-entity id="dancers" scale="0.105 0.105 0.105" rotation="0 0 0" position="0.5 0 2.1">
-        <a-entity bvh-skeleton="src:assets/aachan.bvh; display:false" tetra-skin ribbon-skin shadow="cast:true"></a-entity>
-        <a-entity bvh-skeleton="src:assets/kashiyuka.bvh; display:false" tetra-skin ribbon-skin shadow="cast:true"></a-entity>
-        <a-entity bvh-skeleton="src:assets/nocchi.bvh; display:false" tetra-skin ribbon-skin shadow="cast:true"></a-entity>
+      <a-entity id="dancers" scale="0.105 0.105 0.105" rotation="0 180 0" position="0.5 0 2.1">
+        <a-entity bvh-skeleton="src:assets/aachan.bvh; display:false" tetra-skin ribbon-skin="color:#c2f442" shadow="cast:true"></a-entity>
+        <a-entity bvh-skeleton="src:assets/kashiyuka.bvh; display:false" tetra-skin ribbon-skin="color:#ef77bf" shadow="cast:true"></a-entity>
+        <a-entity bvh-skeleton="src:assets/nocchi.bvh; display:false" tetra-skin ribbon-skin="color:#04bef2" shadow="cast:true"></a-entity>
+
       </a-entity>
 
 
@@ -73,17 +74,17 @@
         vive-controls="hand: left"></a-entity>
 
 
-<!--         <a-datgui name="settings" position="0 2 -1">
+        <a-datgui name="settings" position="0 2 -1">
           <a-gui-slider id="scaleControl" name="scale" step="0.01" min="0.01" max="4"></a-gui-slider>
-          <a-gui-dropdown name="options">
+<!--           <a-gui-dropdown name="options">
             <a-gui-option value="0">Item 0</a-gui-option>
             <a-gui-option value="1">Item 1</a-gui-option>
           </a-gui-dropdown>
           <a-gui-checkbox name="on or off" default="true"></a-gui-checkbox>
-          <a-gui-button name="click me"></a-gui-button>
-        </a-datgui> -->
+          <a-gui-button name="click me"></a-gui-button> -->
+        </a-datgui>
 
-  <!--       <a-sound src="src: url(assets/Perfume_globalsite_sound.ogg)" autoplay="true" position="0 4 0"></a-sound>  -->
+        <a-sound id="soundtrack" src="src: url(assets/Perfume_globalsite_sound.ogg)" autoplay="false" position="0 4 -4"></a-sound>
 
     </a-scene>
   </body>
